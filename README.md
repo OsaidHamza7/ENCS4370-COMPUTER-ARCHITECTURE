@@ -29,7 +29,3 @@ Refer to the documentation or user manual of your chosen MIPS simulator or emula
 Contributions to this project are welcome! If you encounter any issues or have suggestions for improvements, please submit a pull request or open an issue on the project repository.
 
 
-
-## Acknowledgments
-
-We would like to acknowledge the ENCS4370 Computer Architecture course for providing inspiration and guidance for this project. We also thank the open-source community for their invaluable resources and contributions in the field of MIPS Assembly programming and computer architecture.
