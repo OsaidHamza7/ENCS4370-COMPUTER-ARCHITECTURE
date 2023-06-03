@@ -17,7 +17,7 @@ Time : .ascii " times\n"
 dividend: .float 0.0      # Float to be divided
 divisor: .float 0.0       # Float used as the divisor
 result: .float 0.0        # Variable to store the result
-#filename: .asciiz "output.txt"
+filename: .asciiz "output.txt"
 NumCharactersUncompressedFile: .asciiz "The number of charaters in the uncompressed file is :"
 NumCharactersCompressedFile: .asciiz "The number of charaters in the compressed file is :"
 UncompressedFileSize: .asciiz "The size of the uncompressed file is :"
@@ -47,14 +47,13 @@ decompression_keyword: .asciiz "d", "decompress", "decompression"
 quit_keyword: .asciiz "q", "quit"
 no_of_chars_inDict: .word 0
 no_of_words_inDict: .word 0
-UncompressedFileData: .space 5000   # 0.5 MB   #this is spaces to load a data from the file
-CompressedFileData: .space 5000    # 0.5 MB 
-DictionaryData: .space 5000       # 0.5 MB: max number of Bytes in the dictinoray file
-file_to_be_decompressed: .space  5000 # 0.5 MB     
-decompressed_file: .space 5000     #0.5 MB
+UncompressedFileData: .space 10000   # 0.5 MB   #this is spaces to load a data from the file
+CompressedFileData: .space 10000    # 0.5 MB 
+DictionaryData: .space 10000       # 0.5 MB: max number of Bytes in the dictinoray file
+file_to_be_decompressed: .space  10000 # 0.5 MB     
+decompressed_file: .space 10000     #0.5 MB
 enterToBeDecPath: .asciiz "Enter the file to be decompressed: "
-decompressed_filename: .asciiz "decompressed.txt"
-compressed_filename: .asciiz "compressed.txt"
+decompressed_filename: .asciiz "uncompressed.txt"
 code_not_found_msg: .ascii "\"Not Found\"\r\n"
 file_decompressed_msg: .ascii "File decompressing done!"
 ################# Code segment #####################
@@ -176,7 +175,7 @@ load_dict:
 	li $v0, 14		# read_file syscall code = 14
 	move $a0,$s0		# file descriptor
 	la $a1, DictionaryData 	# The buffer that holds the string of the WHOLE file
-	la $a2, 5000		# hardcoded buffer length
+	la $a2, 10000		# hardcoded buffer length
 	syscall
 	sb $v0, no_of_chars_inDict	# number of chars in the file
 	
@@ -259,7 +258,7 @@ AskUserEnterUncompressedFile:
 #-------------------------------------------
 	#Read a file name from the user to be compressed
 	la $a0,UncompressedFileName
-	li $a1,10000
+	li $a1,3000
 	li $a2,0
 	li $v0,8
 	syscall
@@ -286,7 +285,7 @@ Read_From_UncompressedFile:
 	li $v0, 14		# read_file syscall code = 14
 	move $a0,$s0		# file descriptor
 	la $a1,UncompressedFileData  	# The buffer that holds the string of the WHOLE file
-	la $a2,10000		# hardcoded buffer length
+	la $a2,3000		# hardcoded buffer length
 	syscall
 #-------------------------------------------
 	#print number of characters in the file to be compressed
@@ -336,6 +335,7 @@ Create_Dictionary:
 	jal PrintNewLine
 	move $t7,$t5 #maximum length of loaded data to store in a the dictionary file
 	add $t4,$t4,$t5
+
 	jal AddNewLineInDictionary    #add new line(if there is a characters)
 	#addiu $t0,$t0,-1 
 	la $t5,str1 # the word needs to check if it is in the file (if it is not in the file ,it will add it )
@@ -419,7 +419,7 @@ foundSpecial:
 	li $s7,10
 	sb $s7 ,($t4) #add new line to the dic file
 	addi $t4,$t4,1
-	addiu $t7,$t7,2
+	addi $t7,$t7,2
 	lw $s4, no_of_words_inDict
 	addi $s4, $s4, 1 # increment the number of words in the dictionary
 	sw $s4, no_of_words_inDict # save it back in the memory
@@ -477,7 +477,7 @@ NN:
 	j while					
 
 END:
-	bnez $t1,D
+	bnez $t1,DeleteNewLine
 	sb $zero,($t5)
 	la $a1,DictionaryData
 	la $t9,str1
@@ -485,18 +485,19 @@ END:
 	bnez $v0,DeleteNewLine
 	la $a1,str1
 	jal AddWord
-	li $s7,13 # \r
-	sb $s7 ,($t4) #add new line to the dic file
-	addiu $t4,$t4,1
-	li $s7, 10 # \n
-	sb $s7,($t4) #add new line to the dic file
-	addi $t4,$t4,1
-	addi $t7,$t7,2
+	#li $s7,13 # \r
+	#sb $s7 ,($t4) #add new line to the dic file
+	#addiu $t4,$t4,1
+	#li $s7, 10 # \n
+	#sb $s7,($t4) #add new line to the dic file
+	#addi $t4,$t4,1
+	#addi $t7,$t7,2
 	lw $s4, no_of_words_inDict
 	addi $s4, $s4, 1 # increment the number of words in the dictionary
 	sw $s4, no_of_words_inDict # save it back in the memory
 D:
 	sb $t7,MaxLength
+
 #loads the data into the Dictinoray file
 
 #open the dictionary file 
@@ -509,7 +510,7 @@ D:
     li $v0,15		# write_file syscall code = 15
     move $a0,$s1		# file descriptor
     la $a1,DictionaryData		# the string that will be written
-    la $a2,($t7)		# length of the toWrite string
+    la $a2,1000		# length of the toWrite string
     syscall  	
 #Close the dictionry file
     li $v0,16         		# close_file syscall code
@@ -603,7 +604,7 @@ Finish:
 
     # Open the file for writing
     li $v0, 13      # syscall code for opening a file (sys_open)
-    la $a0, compressed_filename    # address of the filename string
+    la $a0, filename    # address of the filename string
     li $a1, 1       # file flags: 1 = write mode
     li $a2, 0       # file permission: not used for writing
     syscall         # call the system call
@@ -753,7 +754,7 @@ decompression:
 	
 	#read the string which contain the path of the to be decompressed file 
 	la $a0, filename2	# address of input buffer
-	li $a1, 5000		# maximum number of characters to read
+	li $a1, 10000		# maximum number of characters to read
 	li $v0, 8		# read string
 	syscall
 	
@@ -785,7 +786,7 @@ load_to_be_decompressed:
 	li $v0, 14		# read_file syscall code = 14
 	move $a0,$s0		# file descriptor
 	la $a1, file_to_be_decompressed 	# The buffer that holds the string of the WHOLE file
-	la $a2, 5000		# hardcoded buffer length
+	la $a2, 10000		# hardcoded buffer length
 	syscall
 	
 	# close the file
@@ -799,10 +800,10 @@ loop_decompress:
 	lb $t1, ($a1)
 	beq $t1, '\0', end_decompress
 	move $v0, $zero
-	addiu $a1, $a1, 2 # skip the "0x"
+	#addiu $a1, $a1, 2 # skip the "0x"
 	jal convert_hexString_to_integer  # convert hex string to integer
 	move $s1, $v0					#move the result to $s1
-	jal point_next_string_cr		# move the pointer to the next element of the array
+	jal point_next_string_newLine 	# move the pointer to the next element of the array
 	
 	move $s0, $a1		# save the address of the pointer in $s0
 	
@@ -952,6 +953,19 @@ point_next_string_null:
 	# end of stinrg
 	jr $ra
 	
+#======================================================================
+# function to make the pointer a1 point to the next string of the array according to \n
+# input	 : $a1: the pointer 
+# output : $a1 will point to the next string of the array
+#--------------------------------------------------------
+point_next_string_newLine:
+	lbu $t0, ($a1)
+	beq $t0, '\0', end_of_array_nl
+	addi $a1, $a1, 1
+	bne $t0, '\n', point_next_string_newLine #check if reached the end of the string
+end_of_array_nl:
+	# end of array
+	jr $ra
 #===============================================================
 # Function PrintNewLine: Print a new line in Run I/O
 # Input: there is no input
@@ -1096,7 +1110,7 @@ GetNumCharactersInDictionary:
 #read from the dictionary file
 	move $a0,$s1		# file descriptor
 	la $a1,DictionaryData 	# The buffer that holds the string of the WHOLE file
-	la $a2,5000		# hardcoded buffer length
+	la $a2,10000		# hardcoded buffer length
 	li $v0, 14		# read_file syscall code = 14
 	syscall
 	move $t5,$v0
@@ -1115,6 +1129,7 @@ AddNewLineInDictionary:
 	li $t9,10
 	sb $t9,($t4)
 	addi $t4,$t4,1
+	addi $t7,$t7,2
 	jr $ra	
 
 #=================================================
@@ -1208,10 +1223,11 @@ convert_hexString_to_integer:
     beq $t3, 10, end_of_hex  # if '\n', done
     beq $t3, 13, end_of_hex  # if '\r', done
     subu $t3, $t3, '0' # subtract ASCII '0'
-    bltu $t3, 10, digit # if less than 10, it's a digit
-    subu $t3, $t3, 7  # subtract 7 to convert 'a'-'f' to 10-15
+    #bltu $t3, 10, digit # if less than 10, it's a digit
+    #subu $t3, $t3, 7  # subtract 7 to convert 'a'-'f' to 10-15
 digit:
-    sll $v0, $v0, 4  # shift left 4 bits (multiply by 16)
+	mul $v0, $v0, 10
+    #sll $v0, $v0, 4  # shift left 4 bits (multiply by 16)
     add $v0, $v0, $t3 # add new digit
     addiu $a1, $a1, 1 # increment pointer
     j convert_hexString_to_integer         # repeat
@@ -1236,7 +1252,10 @@ copy_string:
 	lb $t7, 1($a1)
 	bne $t7, 'n', copy_loop
 	lb $t7, 2($a1)
-	bne $t7, '\r', copy_loop
+	beq $t7, '\r', print_new_line_uncompressed
+	beq $t7, '\0', print_new_line_uncompressed
+	b copy_loop
+print_new_line_uncompressed:
 	li $t9, '\n'		
 	sb $t9, 0($a2)  	  # add a new line to the destination string
     addiu $s7, $s7, 1 # increment the number of character in decompressed file
