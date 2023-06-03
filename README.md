@@ -28,9 +28,7 @@ Refer to the documentation or user manual of your chosen MIPS simulator or emula
 
 Contributions to this project are welcome! If you encounter any issues or have suggestions for improvements, please submit a pull request or open an issue on the project repository.
 
-## License
 
-This project is licensed under the [MIT License](LICENSE). You are free to modify, distribute, and use the code for both commercial and non-commercial purposes. However, please note that the project is provided "as is," without any warranty.
 
 ## Acknowledgments
 
