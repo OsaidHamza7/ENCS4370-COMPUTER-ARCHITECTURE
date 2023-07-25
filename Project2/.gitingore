@@ -1,0 +1,33 @@
+# Aldec ActiveHDL .gitignore
+# Sergey Kostyuk, 2017, Public Domain
+
+*.asdb/
+log/
+Edfmap.ini
+*.wsp
+*.wsf
+*.log
+*.erf
+*.sth
+*.cmd
+compile/
+*.set
+*.gen
+*aws
+*.dll
+*.info
+*.adf
+*.cfg
+*.wsw
+
+# Comment to save compilation order:
+compilation.order
+projlib.cfg
+library.cfg
+*.lib
+*.mgf
+
+# Uncomment to ignore simulation results
+#*.awc
+#*.asdb
+synthesis.order
