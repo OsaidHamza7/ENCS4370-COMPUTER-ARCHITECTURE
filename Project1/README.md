@@ -1,4 +1,4 @@
-# ENCS4370-COMPUTER-ARCHITECTURE
+# Project 1
 
 ## Dictionary-based Compression and Decompression Tool in MIPS Assembly
 
