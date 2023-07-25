@@ -7,7 +7,7 @@ A Simple multi-cycle RISC Verilog processor with architecture similar to MIPS
 
 ---
 
-🔗 | [Project Description](Project-2-Spring+-2022-2023.pdf)  <br>
+🔗 | [Project Description](./Project-2-Spring+-2022-2023.pdf)  <br>
 
 
 
@@ -16,7 +16,7 @@ A Simple multi-cycle RISC Verilog processor with architecture similar to MIPS
 
 ## Data Path
 
-![datapath block diagram](./Path.png)
+![datapath block diagram](./Data_Path_Diagram.png)
 
 
 ## Code
