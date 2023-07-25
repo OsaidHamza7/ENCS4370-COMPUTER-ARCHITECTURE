@@ -35,9 +35,8 @@ A Simple multi-cycle RISC Verilog processor with architecture similar to MIPS
   ![code waveform](./WaveCode.png)
   
  ## Partners
-
-```
-🔗 | [Osaid Hamza](https://github.com/OsaidHamza7)  <br>
-🔗 | [Mohammad Odeh](https://github.com/M7mdOdeh1)  <br>
+___________________________________________________________
+🔗 | [Osaid Hamza](https://github.com/OsaidHamza7)  
+🔗 | [Mohammad Odeh](https://github.com/M7mdOdeh1) 
 🔗 | [Mahmoud Hamdan](https://github.com/mahmoudbzu)
-```
+___________________________________________________________
