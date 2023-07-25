@@ -22,13 +22,15 @@ A Simple multi-cycle RISC Verilog processor with architecture similar to MIPS
 ## Code
 
   ```assembly
-  ADDI R1, R0, 'b1000
-  ADDI R2, R0, 'b1110
-  BEQ R1, R2, 8; not taken (R1 != R2) so R1 becomes 1110
-  ADDI R1, R0, 'b1110
-  BEQ R1, R2, 8; taken (R1 == R2)
-  ADDI R4, R0, 'b1; dead code
-  ADDI R5, R0, 'b2; executed
+  SLLV R2,R1,R0
+  JAL 12
+  SLL R1,R0,1
+  LW R2,1(R2)
+  ADDI R0,R1,1
+  SLLV R2,R1,R0
+  SLR R1,R0,1
+  SLL R1,R0,1
+  SW R1,4(R2) 
   ```
 
 ## Waveform
