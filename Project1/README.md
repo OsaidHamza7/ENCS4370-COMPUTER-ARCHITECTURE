@@ -28,11 +28,10 @@ To use this tool, follow these steps:
 Refer to the documentation or user manual of your chosen MIPS simulator or emulator for detailed instructions on loading and executing MIPS Assembly code.
 
  ## Partners
-
-```
-• Osaid Hamza     1200875
-• Mohammad Odeh   1200089
-```
+___________________________________________________________
+🔗 | [Osaid Hamza](https://github.com/OsaidHamza7)  
+🔗 | [Mohammad Odeh](https://github.com/M7mdOdeh1)
+___________________________________________________________
 
 ## Contributing
 
