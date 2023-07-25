@@ -1,5 +1,8 @@
 # Project 1
 
+🔗 | [Project Description](./ENCS4370_Project+1_+Spring_2022_2023.pdf)  <br>
+
+
 ## Dictionary-based Compression and Decompression Tool in MIPS Assembly
 
 This project implements a simple Dictionary-based Compression and Decompression Tool using MIPS Assembly language. The tool allows you to compress and decompress files by converting words into codes and vice versa.
@@ -23,6 +26,13 @@ To use this tool, follow these steps:
 5. Run the simulator or emulator to execute the compression and decompression tool.
 
 Refer to the documentation or user manual of your chosen MIPS simulator or emulator for detailed instructions on loading and executing MIPS Assembly code.
+
+ ## Partners
+
+```
+• Osaid Hamza     1200875
+• Mohammad Odeh   1200089
+```
 
 ## Contributing
 
