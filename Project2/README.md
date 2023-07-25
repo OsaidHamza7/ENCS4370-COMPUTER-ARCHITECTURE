@@ -37,7 +37,7 @@ A Simple multi-cycle RISC Verilog processor with architecture similar to MIPS
  ## Partners
 
 ```
-• Osaid Hamza     1200875
-• Mohammad Odeh   1200089
-• Mahmoud Hamdan  1201134
+🔗 | [Osaid Hamza](https://github.com/OsaidHamza7)  <br>
+🔗 | [Mohammad Odeh](https://github.com/M7mdOdeh1)  <br>
+🔗 | [Mahmoud Hamdan](https://github.com/mahmoudbzu)
 ```
